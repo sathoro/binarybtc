@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
+    <script type="text/javascript" src="./smoothie.js"></script>
+    <script type="text/javascript">
+      var btc_price = new TimeSeries();
+      setInterval(function(price) {
+        $.get("./ticker.php", function(data) {
+          console.log(data);
+          var price = (data['ticker']['buy'] + data['ticker']['sell']) / 2;
+         btc_price.append(new Date().getTime(), price);
+         document.getElementById("current-price").innerHTML = price;
+        });
+      }, 1000);
+      
+      function createTimeline() {
+        var chart = new SmoothieChart({millisPerPixel:100, grid:{strokeStyle:'#000000'}});
+        chart.addTimeSeries(btc_price, { strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.2)', lineWidth: 4 });
+        chart.streamTo(document.getElementById("chart"), 1000);
+      }
+    </script>
+  </head>
+  <body onload="createTimeline()">
+    <canvas id="chart" width="1300" height="500"></canvas>
+    <div id="current-price"></div>
+  </body>
+</html>

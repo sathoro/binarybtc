@@ -1,0 +1,100 @@
+<?php
+
+use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\Reminders\RemindableInterface;
+
+class User extends Eloquent implements UserInterface, RemindableInterface {
+
+	/**
+	 * The database table used by the model.
+	 *
+	 * @var string
+	 */
+	protected $table = 'users';
+
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	protected $hidden = array('password');
+
+	/**
+	 * Get the unique identifier for the user.
+	 *
+	 * @return mixed
+	 */
+	public function getAuthIdentifier()
+	{
+		return $this->getKey();
+	}
+
+	/**
+	 * Get the password for the user.
+	 *
+	 * @return string
+	 */
+	public function getAuthPassword()
+	{
+		return $this->password;
+	}
+
+	/**
+	 * Get the e-mail address where password reminders are sent.
+	 *
+	 * @return string
+	 */
+	public function getReminderEmail()
+	{
+		return $this->email;
+	}
+
+	public function balances()
+	{
+		return $this->hasMany('UserBalance');
+	}
+
+	public function bets()
+	{
+		return $this->hasMany('Bet', 'created_by_user_id');
+	}
+
+	public function crossBets()
+	{
+		return $this->hasMany('Bet', 'accepted_by_user_id');
+	}
+
+	public function getBalanceAttribute($satoshi = false)
+	{
+		return $this->getBalance($satoshi);
+	}
+
+	public function getBalance($satoshi = true)
+	{
+		$balance = $this->balances()->orderBy('id', 'desc')->pluck('balance');
+		return is_null($balance) ? 0 : $satoshi ? $balance : Bitcoin::toBTC($balance);
+	}
+
+	public function addToBalance($amount)
+	{
+		$currentAmount = $this->getBalance();
+		$currentAmount += $amount;
+
+		$newBalance = new UserBalance();
+		$newBalance->balance = $currentAmount;
+		$newBalance->user_id = $this->id;
+		$newBalance->save();
+	}
+
+	public function subtractFromBalance($amount)
+	{
+		$currentAmount = $this->getBalance();
+		$currentAmount -= $amount;
+
+		$newBalance = new UserBalance();
+		$newBalance->balance = $currentAmount;
+		$newBalance->user_id = $this->id;
+		$newBalance->save();
+	}
+
+}

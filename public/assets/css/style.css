@@ -1,0 +1,136 @@
+body {
+	font-family:'Open Sans', sans-serif;
+}
+
+body#inner-page #main {
+	padding-top:52px;
+}
+
+.jumbotron {
+	padding-top: 68px;
+	background: url(/assets/img/bitcoin-wall2.jpg);
+	background-size: cover;
+	border-bottom: 2px #666 solid;
+	background-position: 0 45%;
+	padding-bottom: 84px;
+}
+
+.jumbotron h1,
+.jumbotron p {
+	color:black;
+}
+
+.jumbotron h1 {
+	font-family:'Ubuntu', sans-serif;
+	font-size: 53px;
+	margin-bottom:-10px;
+	padding: 7px;
+}
+
+.jumbotron p:first-of-type {
+	display: inline-block;
+	padding: 10px 7px;
+	font-weight:400;
+	max-width:390px;
+}
+
+.navbar-header .logo {
+	height: 32px;
+	float: left;
+	margin-right: 12px;
+	position: relative;
+	top: 8px;
+}
+
+.navbar-inverse .navbar-brand {
+	color:white;
+}
+
+.text-red {
+	color:red;
+}
+
+.text-green {
+	color:green;
+}
+
+.text-white {
+	color:#eee !important;
+}
+
+/*.create-new-bet {
+	color: white;
+	margin-left: 17px;
+	height: auto;
+	margin-top: -12px;
+	position: relative;
+	top: 3px;
+}*/
+
+.trade {
+	padding: 10px;
+}
+
+.trade-heading {5
+	font-size: 16px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 8px;
+	padding-bottom: 5px;
+}
+
+footer {
+	margin:25px 0 20px 0;
+}
+
+footer a {
+	margin-left:20px;
+}
+
+#register-modal .input-group {
+	margin-bottom:15px;
+}
+
+.errors {
+	margin-top: -5px;
+	margin-bottom: 12px;
+	color: red;
+}
+
+.success {
+	margin-top: -5px;
+	margin-bottom: 12px;
+	color: green;
+}
+
+.welcome-text {
+	color:white;
+}
+
+#priceChart {
+	background: #3f3f4f;
+	color:#ffffff;
+	font-size: 11px;
+	width:100%;
+}
+
+#priceChart.small {
+	height:200px;
+}
+
+#priceChart.large {
+	margin-top: 51px;
+	height:400px;
+	margin-bottom: 30px;
+}
+
+.amChartsPeriodSelector {
+	padding: 5px 5px 0;
+	margin:0 !important;
+}
+.amChartsLegend {
+	display:none;
+}
+
+.text-address {
+	word-break: break-all;
+}
